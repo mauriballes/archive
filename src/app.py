@@ -74,7 +74,8 @@ Routes
 @app.route('/', methods=['GET'])
 @login_required
 def index():
-    return render_template('index.html')
+    videos = [model_to_dict(video) for video in Video.select()]
+    return render_template('index.html', videos=videos)
 
 @app.route('/video/add', methods=['GET', 'POST'])
 @login_required
@@ -94,3 +95,12 @@ def add_video():
         return redirect(url_for('index'))
 
     return render_template('video/add.html')
+
+@app.route('/video/<int:id>/watch', methods=['GET'])
+@login_required
+def watch_video(id):
+    video = Video.select().where(Video.id == id).first()
+    if video:
+        video = model_to_dict(video)
+
+    return render_template('video/watch.html', video=video)

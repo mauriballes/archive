@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block content %}
+<div class="content-fluid">
+  {% if video %}
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center">
+      <h1>{{ video.get('name') }}</h1>
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+      <h5>{{ video.get('description') }}</h5>
+    </div>
+    <div class="col-8 offset-2 d-flex justify-content-center">
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe
+          class="embed-responsive-item"
+          src="{{ video.get('embed_link') }}"
+        />
+      </div>
+    </div>
+    {% else %}
+    <div class="row">
+      <div class="col-12 d-flex justify-content-center">
+        <h1>The video doesn't exist.</h1>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  {% endblock content %}
+</div>
