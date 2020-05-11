@@ -6,6 +6,7 @@ from playhouse.shortcuts import model_to_dict
 from werkzeug.security import check_password_hash
 
 from .models import database, User, Video
+from .utils import parse_youtube_link
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'my-secret-key')
@@ -74,3 +75,22 @@ Routes
 @login_required
 def index():
     return render_template('index.html')
+
+@app.route('/video/add', methods=['GET', 'POST'])
+@login_required
+def add_video():
+    if request.method == 'POST':
+        name = request.form['name']
+        description = request.form['description']
+        link = request.form['link']
+        
+        yt_id, embed_link, thumbnail_link = parse_youtube_link(link)
+        video = Video.create(
+            name=name, description=description, 
+            yt_id=yt_id, embed_link=embed_link, 
+            thumbnail_link=thumbnail_link)
+
+        flash("New Video Added.")
+        return redirect(url_for('index'))
+
+    return render_template('video/add.html')

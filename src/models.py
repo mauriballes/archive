@@ -15,7 +15,10 @@ class User(BaseModel):
 
 class Video(BaseModel):
     name = CharField()
-    link = CharField()
+    description = CharField()
+    yt_id = CharField()
+    embed_link = CharField()
+    thumbnail_link = CharField()
 
 
 def create_tables():

@@ -1,5 +1,17 @@
-{% extends 'base.html' %}
-
+{% extends 'base.html' %} 
 {% block content %}
-  <h1>Hello World!</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div
+      class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start"
+    >
+      <h1>Library</h1>
+    </div>
+    <div
+      class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end align-items-center"
+    >
+      <a href="{{ url_for('add_video') }}" class="btn btn-dark">Add Video</a>
+    </div>
+  </div>
+</div>
 {% endblock %}
