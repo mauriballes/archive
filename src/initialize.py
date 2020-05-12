@@ -4,15 +4,19 @@ from werkzeug.security import generate_password_hash
 
 from models import create_tables, database, User
 
-# Create DB
-create_tables()
+def init_db():
+    # Create DB
+    create_tables()
 
-database.connect()
+    database.connect()
 
-# Seed Users
-username = "admin"
-password = generate_password_hash(os.getenv("PASSWORD_ADMIN", "password"))
+    # Seed Users
+    username = "admin"
+    password = generate_password_hash(os.getenv("PASSWORD_ADMIN", "password"))
 
-User.create(username=username, password=password)
+    User.create(username=username, password=password)
 
-database.close()
+    database.close()
+
+if __name__ == "__main__":
+    init_db()
