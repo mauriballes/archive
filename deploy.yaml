@@ -1,0 +1,64 @@
+# Kubernetes files
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: archive-deployment
+  namespace: production
+  labels:
+    app: archive
+    version: "1.0"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: archive
+      version: "1.0"
+  template:
+    metadata:
+      labels:
+        app: archive
+        version: "1.0"
+    spec:
+      containers:
+        - name: archive
+          image: mauriballes/archive:1.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 102Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: archive-service
+  namespace: production
+spec:
+  selector:
+    app: archive
+    version: "1.0"
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: archive-ingress
+  namespace: production
+spec:
+  rules:
+    - host: archive.mauriballes.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: archive-service
+              servicePort: 80
