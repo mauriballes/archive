@@ -1,6 +1,9 @@
 # Pull Images
 FROM python:3.7.5-alpine
 
+# Dependencies
+RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
+
 # Work Directory
 WORKDIR /usr/src/app
 

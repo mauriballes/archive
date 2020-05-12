@@ -22,8 +22,25 @@ spec:
     spec:
       containers:
         - name: archive
-          image: mauriballes/archive:1.2
+          image: mauriballes/archive:1.4
           imagePullPolicy: IfNotPresent
+          env:
+            - name: DB_HOST
+              value: postgres
+            - name: DB_USER
+              value: postgres
+            - name: DB_PASS
+              value: password
+            - name: PASSWORD_ADMIN
+              valueFrom:
+                secretKeyRef:
+                  name: archive
+                  key: admin-password
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: archive
+                  key: secret-key
           ports:
             - containerPort: 5000
           resources:
