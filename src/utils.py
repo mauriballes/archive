@@ -2,7 +2,7 @@ from urllib.parse import urlparse, parse_qs
 
 def parse_youtube_link(link):
     EMBED_URL = 'https://www.youtube.com/embed/{}'
-    THUMBNAIL_URL = 'http://img.youtube.com/vi/{}/sddefault.jpg'
+    THUMBNAIL_URL = 'https://img.youtube.com/vi/{}/sddefault.jpg'
     
     parse_url = urlparse(link)
     qs = parse_qs(parse_url.query)
