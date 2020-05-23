@@ -104,3 +104,13 @@ def watch_video(id):
         video = model_to_dict(video)
 
     return render_template('video/watch.html', video=video)
+
+@app.route('/video/delete', methods=['POST'])
+@login_required
+def delete_video():
+    id = request.form['id']
+    video = Video.select().where(Video.id == id).first()
+    if video:
+        video.delete_instance()
+
+    return redirect(url_for('index'))
