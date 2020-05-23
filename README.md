@@ -8,7 +8,7 @@ This is a multimedia library software for organize your private youtube video as
 - [x] Basic Styling
 - [x] Move DB to postgres
 - [ ] Update Video
-- [ ] Delete Video
+- [x] Delete Video
 - [ ] Implement User Roles
 - [ ] Implement User Access based on Videos
 
