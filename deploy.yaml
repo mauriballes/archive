@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: archive
-          image: mauriballes/archive:1.4
+          image: mauriballes/archive:1.5
           imagePullPolicy: IfNotPresent
           env:
             - name: DB_HOST
