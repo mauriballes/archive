@@ -26,11 +26,17 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: DB_HOST
-              value: postgres
+              value: postgres-service
             - name: DB_USER
-              value: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: database
+                  key: user
             - name: DB_PASS
-              value: password
+              valueFrom:
+                secretKeyRef:
+                  name: database
+                  key: password
             - name: PASSWORD_ADMIN
               valueFrom:
                 secretKeyRef:
@@ -70,7 +76,14 @@ kind: Ingress
 metadata:
   name: archive-ingress
   namespace: production
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/issuer: "letsencrypt-prod"
 spec:
+  tls:
+    - hosts:
+        - archive.mauriballes.com
+      secretName: archive-tls
   rules:
     - host: archive.mauriballes.com
       http:
